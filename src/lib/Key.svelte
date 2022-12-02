@@ -24,11 +24,14 @@ function playTone() {
 }
 
 function notePressed(event) {
-  if (event.buttons & 1) {
+	event.preventDefault();
+
+  if (event.buttons === 1 || event.touches.length === 1) {
     if (!isPressed) {
       const octaveAsNumber = Number(octave);
       oscList[octaveAsNumber][note] = playTone();
       isPressed = true;
+			console.log("playing tone");
     }
   }
 }
@@ -43,7 +46,22 @@ function noteReleased(event) {
 }
 </script>
 
-<button class="key" class:pressed="{isPressed}" on:mousedown={notePressed} on:mouseup={noteReleased} on:mouseover={notePressed} on:mouseleave={noteReleased} on:focus={notePressed}>
+<button 
+		class="key"
+		class:pressed="{isPressed}"
+		on:mousedown={notePressed}
+		on:mouseup={noteReleased}
+		on:mouseover={notePressed} 
+		on:mouseleave={noteReleased}
+		on:focus={notePressed}
+		on:touchstart={notePressed}
+		on:touchend={noteReleased}
+		on:touchcancel={noteReleased}
+		on:touchmove={notePressed}
+		on:dragenter={notePressed}
+		on:dragleave={noteReleased}
+		on:dragend={noteReleased}
+	>
 	{note}
 	<sub>{octave}</sub>
 </button>
