@@ -26,7 +26,7 @@ function playTone() {
 function notePressed(event) {
 	event.preventDefault();
 
-  if (event.buttons === 1 || event.touches.length === 1) {
+  if (event.buttons === 1 || (event.touches && event.touches.length === 1)) {
     if (!isPressed) {
       const octaveAsNumber = Number(octave);
       oscList[octaveAsNumber][note] = playTone();
@@ -72,7 +72,7 @@ function noteReleased(event) {
 		border: 1px solid #ddd;
 		color: #000;
 		flex-shrink: 0;
-		height: 200px;
+		height: 40px;
 		margin: .1rem;
 		padding: 0;
 		text-align: center;
@@ -88,5 +88,11 @@ function noteReleased(event) {
 
 	.key:active {
 		background-color: #777;
+	}
+
+	@media(min-width: 768px) {
+		.key {
+			height: 200px;
+		}
 	}
 </style>

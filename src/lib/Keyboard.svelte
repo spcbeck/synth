@@ -38,11 +38,14 @@
 <section class="keyboard">
 	<div class="controls">
 		<Control name={'gain'} label={"Gain"} onChange={onGainChange} value={mainGainNode.gain.value} max={10} step={1}></Control>
-		<select on:change={onWaveTypeChange}>
-			{#each waveForms as waveForm}
-				<option value={waveForm}>{waveForm}</option>
-			{/each}
-		</select>
+		<div class="control-group">
+			<label for="wave">Wave shape</label>
+			<select name="wave" on:change={onWaveTypeChange}>
+				{#each waveForms as waveForm}
+					<option value={waveForm}>{waveForm}</option>
+				{/each}
+			</select>
+		</div>
 	</div>
 	<div>
 		{#each keyList as key, i}
@@ -60,10 +63,12 @@
 
 .controls {
 	display: flex;
+	margin-bottom: 1rem;
 }
 
 .controls > * {
 	margin-right: 1rem;
+	flex-grow: 1;
 }
 
 .controls:last-chlid {
